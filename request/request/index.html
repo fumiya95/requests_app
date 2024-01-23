@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>天気情報</title>
+</head>
+<body>
+
+<h1>{{ city_weather.title }}の天気情報</h1>
+
+<p>日付: {{ city_weather.forecast.dateLabel }} ({{ city_weather.forecast.date }})</p>
+
+<img src="{{ city_weather.forecast.image.url }}" alt="{{ city_weather.forecast.image.title }}" width="{{ city_weather.forecast.image.width }}" height="{{ city_weather.forecast.image.height }}">
+
+<h2>1日の天気の移り変わり</h2>
+<ul>
+    {% for forecast in city_weather.forecasts %}
+        <li>
+            <strong>{{ forecast.dateLabel }}:</strong> {{ forecast.telop }}
+            {% if forecast.temperature.min.celsius is not null and forecast.temperature.max.celsius is not null %}
+                (最低気温: {{ forecast.temperature.min.celsius }}°C, 最高気温: {{ forecast.temperature.max.celsius }}°C)
+            {% endif %}
+        </li>
+    {% endfor %}
+</ul>
+
+<p>最高気温: {{ city_weather.forecast.temperature.max.celsius }}°C</p>
+<p>最低気温: {{ city_weather.forecast.temperature.min.celsius }}°C</p>
+
+</body>
+</html>
